@@ -1,0 +1,19 @@
+Notice 0: Reading LEF file:  /project/openlane/user_project_wrapper/runs/user_project_wrapper/tmp/merged.lef
+Notice 0:     Created 11 technology layers
+Notice 0:     Created 25 technology vias
+Notice 0:     Created 437 library cells
+Notice 0: Finished LEF file:  /project/openlane/user_project_wrapper/runs/user_project_wrapper/tmp/merged.lef
+Notice 0: 
+Reading DEF file: /project/openlane/user_project_wrapper/runs/user_project_wrapper/results/routing/user_project_wrapper.def
+Notice 0: Design: user_project_wrapper
+Notice 0:     Created 614 pins.
+Notice 0:     Created 28034 components and 58126 component-terminals.
+Notice 0:     Created 2 special nets and 0 connections.
+Notice 0:     Created 1049 nets and 1955 connections.
+Notice 0: Finished DEF file: /project/openlane/user_project_wrapper/runs/user_project_wrapper/results/routing/user_project_wrapper.def
+Top-level design name: user_project_wrapper
+Found port VPWR of type SIGNAL
+Found port VGND of type SIGNAL
+Power net:  VPWR
+Ground net: VGND
+Modified power connections of 28034 cells (Remaining: 0 ).

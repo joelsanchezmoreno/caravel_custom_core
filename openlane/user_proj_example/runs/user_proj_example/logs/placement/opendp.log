@@ -1,39 +1,67 @@
-OpenROAD 0.9.0 e582f2522b
-This program is licensed under the BSD-3 license. See the LICENSE file for details. 
-Components of this program may be licensed under more restrictive licenses which must be honored.
-Notice 0: Reading LEF file:  /project/openlane/user_proj_example/runs/user_proj_example/tmp/merged_unpadded.lef
-Notice 0:     Created 13 technology layers
-Notice 0:     Created 25 technology vias
-Notice 0:     Created 437 library cells
-Notice 0: Finished LEF file:  /project/openlane/user_proj_example/runs/user_proj_example/tmp/merged_unpadded.lef
-Notice 0: 
-Reading DEF file: /project/openlane/user_proj_example/runs/user_proj_example/tmp/placement/openphysyn.def
-Notice 0: Design: user_proj_example
-Notice 0:     Created 612 pins.
-Notice 0:     Created 1518 components and 6703 component-terminals.
-Notice 0:     Created 1015 nets and 1888 connections.
-Notice 0: Finished DEF file: /project/openlane/user_proj_example/runs/user_proj_example/tmp/placement/openphysyn.def
-Warning: could not find power special net
-Design Stats
---------------------------------
-total instances          1518
-multi row instances         0
-fixed instances           846
-nets                     1015
-design area           53897.9 u^2
-fixed area             1473.9 u^2
-movable area           7332.0 u^2
-utilization                14 %
-utilization padded         27 %
-rows                       83
-row height                2.7 u
+===========================================================================
+   Open Source Mixed-Height Standard Cell Detail Placer < OpenDP_v1.0 >    
+   Developers : SangGi Do, Mingyu Woo                                      
+===========================================================================
+Parsed 10000 number of lines!!
+Parsed 20000 number of lines!!
+Parsed 30000 number of lines!!
+Parsed 40000 number of lines!!
+Parsed 50000 number of lines!!
+Parsed 60000 number of lines!!
+Reading /project/openlane/user_proj_example/runs/user_proj_example/tmp/merged.lef is Done
 
-Placement Analysis
---------------------------------
-total displacement     6890.8 u
-average displacement      4.5 u
-max displacement         64.2 u
-original HPWL         42098.9 u
-legalized HPWL        48134.9 u
-delta HPWL                 14 %
-
+-------------------- INPUT FILES ----------------------------------
+ benchmark name    : placement
+ directory         : /project/openlane/user_proj_example/runs/user_proj_example/tmp
+ lef               : /project/openlane/user_proj_example/runs/user_proj_example/tmp/merged.lef
+ def               : /project/openlane/user_proj_example/runs/user_proj_example/tmp/placement/openphysyn.def
+-------------------------------------------------------------------
+CoreArea: 
+5520.000000 : 10880.000000 - 594320.000000 : 587520.000000
+DieArea: 
+0.000000 : 0.000000 - 588800.000000 : 576640.000000
+Reading /project/openlane/user_proj_example/runs/user_proj_example/tmp/placement/openphysyn.def is Done
+-------------------- DESIGN ANALYSIS ------------------------------
+  total cells              : 5502
+  multi cells              : 0
+  fixed cells              : 4811
+  total nets               : 1034
+  design area              : 3.39526e+11
+  total f_area             : 7.08054e+09
+  total m_area             : 1.48655e+10
+  design util              : 4.47157
+  num rows                 : 212
+  row height               : 2720
+-------------------------------------------------------------------
+ non_group_cell_region_assign done ..
+ - - - - - - - - - - - - - - - - - - - - - - - - 
+ non_group_cell_placement done .. 
+ - - - - - - - - - - - - - - - - - - - - - - - - 
+Reading /project/openlane/user_proj_example/runs/user_proj_example/tmp/placement/openphysyn.def is Done
+ DEF file write success !! 
+ location : /project/openlane/user_proj_example/runs/user_proj_example/results/placement/user_proj_example.placement.def
+-------------------------------------------------------------------
+ tasks                          Wtime      Ctime
+ Parser                         0.430      0.240
+ resgin assign                  0.434      0.240
+ pre-placement                  0.434      0.240
+ non Group cell placement       0.446      0.250
+ All                            0.462      0.250
+ - - - - - EVALUATION - - - - - 
+ AVG_displacement : 2213.8
+ SUM_displacement : 1.21803e+07
+ MAX_displacement : 97490
+ - - - - - - - - - - - - - - - - 
+ GP HPWL          : 52917.9
+ HPWL             : 64424.3
+ avg_Disp_site    : 4.81261
+ avg_Disp_row     : 0.813897
+ delta_HPWL       : 21.7439
+ ==== CHECK LEGALITY ==== 
+ row_check ==>> PASS 
+ site_check ==>> PASS 
+ power_check ==>> PASS 
+ edge_check ==>> PASS 
+ placed_check ==>> PASS 
+ overlap_check ==>> PASS 
+ - - - - - < Program END > - - - - - 

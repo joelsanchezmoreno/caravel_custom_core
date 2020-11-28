@@ -1,3 +1,7 @@
+# Caravel-with-customCore
+
+A custom core with a custom ISA based on MIPS that contains an L1 instruction and data cache, a store buffer and a reorder buffer. Single thread core. Further information can be found on the documentation.
+
 # CIIC Harness  
 
 A template SoC for Google SKY130 free shuttles. It is still WIP. The current SoC architecture is given below.

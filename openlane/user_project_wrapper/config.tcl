@@ -1,30 +1,21 @@
 set script_dir [file dirname [file normalize [info script]]]
 
 set ::env(DESIGN_NAME) user_project_wrapper
-set ::env(FP_PIN_ORDER_CFG) $script_dir/pin_order.cfg
-
-set ::env(CLOCK_PORT) "user_clock2"
-set ::env(CLOCK_NET) "mprj.clk"
-
-set ::env(CLOCK_PERIOD) "10"
-
-set ::env(FP_PDN_CORE_RING) 1
-set ::env(PDN_CFG) $script_dir/pdn.tcl
-set ::env(FP_SIZING) absolute
-set ::env(DIE_AREA) "0 0 2920 3520"
-set ::env(PL_OPENPHYSYN_OPTIMIZATIONS) 0
-set ::env(DIODE_INSERTION_STRATEGY) 0
 
 set ::env(VERILOG_FILES) "\
 	$script_dir/../../verilog/rtl/defines.v \
 	$script_dir/../../verilog/rtl/user_project_wrapper.v"
 
-set ::env(VERILOG_FILES_BLACKBOX) "\
-	$script_dir/../../verilog/rtl/defines.v \
-	$script_dir/../../verilog/rtl/user_proj_example.v"
+set ::env(CLOCK_NET) "counter.clk"
+set ::env(CLOCK_PERIOD) "10"
 
-set ::env(EXTRA_LEFS) "\
-	$script_dir/../../lef/user_proj_example.lef"
+set ::env(FP_SIZING) absolute
+set ::env(DIE_AREA) "0 0 600 600"
+set ::env(DESIGN_IS_CORE) 0
 
-set ::env(EXTRA_GDS_FILES) "\
-	$script_dir/../../gds/user_proj_example.gds"
+set ::env(FP_PIN_ORDER_CFG) $script_dir/pin_order.cfg
+# set ::env(FP_CONTEXT_DEF) $script_dir/../user_project_wrapper/runs/user_project_wrapper/tmp/floorplan/ioPlacer.def.macro_placement.def
+# set ::env(FP_CONTEXT_LEF) $script_dir/../user_project_wrapper/runs/user_project_wrapper/tmp/merged_unpadded.lef
+
+set ::env(PL_BASIC_PLACEMENT) 1
+set ::env(PL_TARGET_DENSITY) 0.15
