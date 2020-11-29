@@ -106,7 +106,7 @@ module core_top_wrapper (
 		.rsp_valid_miss(rsp_valid_miss),
 		.rsp_cache_id(rsp_cache_id)
 	);
-	reg [127:0] main_memory [999:0];
+	reg [127:0] main_memory [19:0];
 	reg req_mm_valid;
 	reg [148:0] req_mm_info;
 	reg [148:0] req_mm_info_ff;
@@ -219,7 +219,7 @@ module core_top_wrapper (
 			if (mprj_req_valid && !mprj_rsp_valid) begin
 				mprj_rsp_valid <= 1'b1;
 				mprj_rsp_data <= main_memory[mprj_req_addr];
-				if (mprj_req_addr == 32'hffffff00)
+				if (mprj_req_addr == 32'hffff0000)
 					boot_address_next <= mprj_req_wdata;
 				else begin
 					if (mprj_req_wstrb[0])
@@ -236,7 +236,7 @@ module core_top_wrapper (
 				mem_rsp_count <= mem_rsp_count + 1'b1;
 				if (mem_rsp_count == 4) begin
 					rsp_mm_valid <= 1'b1;
-					if (req_mm_info_ff[148-:20] >= 16000)
+					if (req_mm_info_ff[148-:20] >= 320)
 						rsp_mm_bus_error <= 1'b1;
 					else if (!req_mm_info_ff[128])
 						rsp_mm_data <= main_memory[req_mm_info_ff[148-:20]];

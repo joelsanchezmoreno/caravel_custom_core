@@ -17,7 +17,7 @@ module data_cache (
 	input wire reset;
 	output wire dcache_ready;
 	output reg xcpt_bus_error;
-	input wire [238:0] req_info;
+	input wire [236:0] req_info;
 	input wire req_valid;
 	output reg [31:0] rsp_data;
 	output reg rsp_valid;
@@ -26,39 +26,39 @@ module data_cache (
 	input wire [127:0] rsp_data_miss;
 	input wire rsp_bus_error;
 	input wire rsp_valid_miss;
-	reg [511:0] dCache_data;
-	reg [511:0] dCache_data_ff;
-	reg [59:0] dCache_tag;
-	reg [59:0] dCache_tag_ff;
-	reg [3:0] dCache_dirty;
-	reg [3:0] dCache_dirty_ff;
-	reg [3:0] dCache_valid;
-	reg [3:0] dCache_valid_ff;
+	reg [255:0] dCache_data;
+	reg [255:0] dCache_data_ff;
+	reg [29:0] dCache_tag;
+	reg [29:0] dCache_tag_ff;
+	reg [1:0] dCache_dirty;
+	reg [1:0] dCache_dirty_ff;
+	reg [1:0] dCache_valid;
+	reg [1:0] dCache_valid_ff;
 	always @(posedge clock) dCache_data_ff <= dCache_data;
 	always @(posedge clock) dCache_tag_ff <= dCache_tag;
 	always @(posedge clock)
 		if (reset)
-			dCache_valid_ff <= {4 {1'sb0}};
+			dCache_valid_ff <= {2 {1'sb0}};
 		else
 			dCache_valid_ff <= dCache_valid;
 	always @(posedge clock)
 		if (reset)
-			dCache_dirty_ff <= {4 {1'sb0}};
+			dCache_dirty_ff <= {2 {1'sb0}};
 		else
 			dCache_dirty_ff <= dCache_dirty;
 	reg dcache_tags_hit;
-	reg [0:0] hit_way;
-	reg [54:0] store_buffer_push_info;
-	wire [54:0] store_buffer_pop_info;
+	reg [-1:0] hit_way;
+	reg [55:0] store_buffer_push_info;
+	wire [55:0] store_buffer_pop_info;
 	wire store_buffer_perform;
 	wire store_buffer_pending;
 	wire store_buffer_full;
 	assign store_buffer_perform = (store_buffer_pending & !req_valid) & dcache_ready;
-	reg [1:0] req_target_pos;
-	reg [1:0] req_target_pos_ff;
+	reg [0:0] req_target_pos;
+	reg [0:0] req_target_pos_ff;
 	always @(posedge clock) req_target_pos_ff <= req_target_pos;
 	reg [0:0] req_set;
-	wire [0:0] miss_dcache_way;
+	wire [-1:0] miss_dcache_way;
 	reg dcache_ready_next;
 	reg dcache_ready_ff;
 	always @(posedge clock)
@@ -83,15 +83,15 @@ module data_cache (
 			store_buffer_hit_way_ff <= 1'sb0;
 		else if (search_store_buffer)
 			store_buffer_hit_way_ff <= store_buffer_hit_way;
-	wire [54:0] pending_store_req;
-	reg [54:0] pending_store_req_ff;
+	wire [55:0] pending_store_req;
+	reg [55:0] pending_store_req_ff;
 	always @(posedge clock)
 		if (reset)
-			pending_store_req_ff <= {55 {1'sb0}};
+			pending_store_req_ff <= {56 {1'sb0}};
 		else if (store_buffer_hit_tag | store_buffer_hit_way)
 			pending_store_req_ff <= pending_store_req;
-	reg [238:0] pending_req;
-	reg [238:0] pending_req_ff;
+	reg [236:0] pending_req;
+	reg [236:0] pending_req_ff;
 	always @(posedge clock) pending_req_ff <= pending_req;
 	reg [3:0] req_offset;
 	reg [14:0] req_tag;
@@ -142,20 +142,20 @@ module data_cache (
 				req_set = req_info[171:171];
 				req_offset = req_info[170:167] >> clog2(req_info[166-:2] + 1);
 				if (req_valid) begin
-					for (iter = 0; iter < 2; iter = iter + 1)
-						if ((dCache_tag_ff[(iter + (req_set * 2)) * 15+:15] == req_tag) & (dCache_valid[iter + (req_set * 2)] == 1'b1)) begin
-							req_target_pos = iter + (req_set * 2);
+					for (iter = 0; iter < 1; iter = iter + 1)
+						if ((dCache_tag_ff[(iter + req_set) * 15+:15] == req_tag) & (dCache_valid[iter + req_set] == 1'b1)) begin
+							req_target_pos = iter + req_set;
 							dcache_tags_hit = 1'b1;
 							hit_way = iter;
 						end
 					if (!dcache_tags_hit)
-						req_target_pos = miss_dcache_way + (req_set * 2);
+						req_target_pos = miss_dcache_way + req_set;
 					search_store_buffer = (req_info[164] & dcache_tags_hit ? 1'b0 : (!req_info[164] & dcache_tags_hit ? 1'b1 : dCache_dirty_ff[req_target_pos]));
 					search_tag = req_info[186:172];
 					if (dcache_tags_hit & req_info[164]) begin
 						rsp_valid = 1'b1;
-						store_buffer_push_info[54-:20] = req_info[198-:32];
-						store_buffer_push_info[34] = hit_way;
+						store_buffer_push_info[55-:20] = req_info[198-:32];
+						store_buffer_push_info[35-:2] = hit_way;
 						store_buffer_push_info[33-:2] = req_info[166-:2];
 						store_buffer_push_info[31-:32] = req_info[163-:32];
 					end
@@ -203,19 +203,19 @@ module data_cache (
 					end
 				end
 				else begin
-					req_tag = store_buffer_pop_info[54:40];
-					req_set = store_buffer_pop_info[39:39];
+					req_tag = store_buffer_pop_info[55:41];
+					req_set = store_buffer_pop_info[40:40];
 					req_size = store_buffer_pop_info[33-:2];
-					req_target_pos = store_buffer_pop_info[34] + (req_set * 2);
+					req_target_pos = store_buffer_pop_info[35-:2] + req_set;
 					if (store_buffer_pending) begin
 						dCache_tag[req_target_pos * 15+:15] = req_tag;
 						dCache_dirty[req_target_pos] = 1'b1;
 						if (req_size == Byte) begin
-							req_offset = store_buffer_pop_info[38:35];
+							req_offset = store_buffer_pop_info[39:36];
 							dCache_data[(req_target_pos * 128) + (8 * req_offset)+:8] = store_buffer_pop_info[7:0];
 						end
 						else begin
-							req_offset = store_buffer_pop_info[38:35] >> clog2(store_buffer_pop_info[33-:2] + 1);
+							req_offset = store_buffer_pop_info[39:36] >> clog2(store_buffer_pop_info[33-:2] + 1);
 							dCache_data[(req_target_pos * 128) + (32 * req_offset)+:32] = store_buffer_pop_info[31:0];
 						end
 					end
@@ -273,17 +273,17 @@ module data_cache (
 				req_valid_miss = 1'b0;
 				dcache_ready_next = 1'b0;
 				if (store_buffer_hit_tag_ff | store_buffer_hit_way_ff) begin
-					req_tag = pending_store_req_ff[54:40];
+					req_tag = pending_store_req_ff[55:41];
 					req_size = pending_store_req_ff[33-:2];
 					dCache_tag[req_target_pos_ff * 15+:15] = req_tag;
 					dCache_dirty[req_target_pos_ff] = 1'b1;
 					dCache_valid[req_target_pos_ff] = 1'b1;
 					if (req_size == Byte) begin
-						req_offset = pending_store_req_ff[38:35];
+						req_offset = pending_store_req_ff[39:36];
 						dCache_data[(req_target_pos_ff * 128) + (8 * req_offset)+:8] = pending_store_req_ff[7:0];
 					end
 					else begin
-						req_offset = pending_store_req_ff[38:35] >> clog2(pending_req_ff[166-:2] + 1);
+						req_offset = pending_store_req_ff[39:36] >> clog2(pending_req_ff[166-:2] + 1);
 						dCache_data[(req_target_pos_ff * 128) + (32 * req_offset)+:32] = pending_store_req_ff[31:0];
 					end
 					search_store_buffer = 1'b1;
@@ -309,7 +309,7 @@ module data_cache (
 						dcache_state = idle;
 					end
 					else begin
-						req_info_miss[148-:20] = pending_store_req_ff[54-:20] >> 4;
+						req_info_miss[148-:20] = pending_store_req_ff[55-:20] >> 4;
 						req_info_miss[128] = 1'b1;
 						req_info_miss[127-:128] = dCache_data[req_target_pos_ff * 128+:128];
 						req_valid_miss = 1'b1;
@@ -322,15 +322,15 @@ module data_cache (
 		endcase
 	end
 	wire [0:0] update_set;
-	wire [0:0] update_way;
+	wire [-1:0] update_way;
 	wire update_dcache_lru;
 	assign update_dcache_lru = dcache_tags_hit | ((dcache_state_ff == bring_line) & rsp_valid_miss);
 	assign update_set = req_set;
-	assign update_way = (dcache_tags_hit ? hit_way : req_target_pos_ff - (((req_size + 1) * 8) * 2));
+	assign update_way = (dcache_tags_hit ? hit_way : req_target_pos_ff - ((req_size + 1) * 8));
 	cache_lru #(
 		.NUM_SET(2),
-		.NUM_WAYS(4),
-		.WAYS_PER_SET(2)
+		.NUM_WAYS(2),
+		.WAYS_PER_SET(1)
 	) dcache_lru(
 		.clock(clock),
 		.reset(reset),

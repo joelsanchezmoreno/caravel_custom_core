@@ -9,8 +9,8 @@ module cache_lru (
 	update_way
 );
 	parameter NUM_SET = 2;
-	parameter NUM_WAYS = 4;
-	parameter WAYS_PER_SET = 2;
+	parameter NUM_WAYS = 2;
+	parameter WAYS_PER_SET = 1;
 	function [31:0] clog2;
 		input reg [31:0] value;
 		integer i;
