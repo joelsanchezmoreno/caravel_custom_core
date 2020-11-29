@@ -7,7 +7,7 @@ set ::env(CLOCK_PORT) "user_clock2"
 set ::env(CLOCK_NET) "core_wrapper.wb_clk_i"
 
 set ::env(CLOCK_PERIOD) "10"
-
+ 
 set ::env(FP_PDN_CORE_RING) 1
 set ::env(PDN_CFG) $script_dir/pdn.tcl
 set ::env(FP_SIZING) absolute
