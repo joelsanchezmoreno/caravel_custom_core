@@ -1,68 +1,83 @@
-OpenROAD 0.9.0 e582f2522b
+OpenROAD 0.9.0 d03ebfc244
 This program is licensed under the BSD-3 license. See the LICENSE file for details. 
 Components of this program may be licensed under more restrictive licenses which must be honored.
+Error: cannot open '/.openroad'.
 Notice 0: Reading LEF file:  /project/openlane/user_proj_example/runs/user_proj_example/tmp/merged_unpadded.lef
-Notice 0:     Created 11 technology layers
+Notice 0:     Created 13 technology layers
 Notice 0:     Created 25 technology vias
 Notice 0:     Created 437 library cells
 Notice 0: Finished LEF file:  /project/openlane/user_proj_example/runs/user_proj_example/tmp/merged_unpadded.lef
 Notice 0: 
 Reading DEF file: /project/openlane/user_proj_example/runs/user_proj_example/results/floorplan/user_proj_example.floorplan.def
 Notice 0: Design: user_proj_example
-Notice 0:     Created 612 pins.
-Notice 0:     Created 5502 components and 13029 component-terminals.
-Notice 0:     Created 1034 nets and 1922 connections.
+Notice 0:     Created 604 pins.
+Notice 0:     Created 5603 components and 15833 component-terminals.
+Notice 0:     Created 1127 nets and 2092 connections.
 Notice 0: Finished DEF file: /project/openlane/user_proj_example/runs/user_proj_example/results/floorplan/user_proj_example.floorplan.def
 [INFO] DBU = 1000
 [INFO] SiteSize = (460, 2720)
 [INFO] CoreAreaLxLy = (5520, 10880)
 [INFO] CoreAreaUxUy = (594320, 587520)
-[INFO] NumInstances = 5502
-[INFO] NumPlaceInstances = 691
+[INFO] NumInstances = 5603
+[INFO] NumPlaceInstances = 792
 [INFO] NumFixedInstances = 4811
 [INFO] NumDummyInstances = 0
-[INFO] NumNets = 1034
-[INFO] NumPins = 2534
+[INFO] NumNets = 1127
+[INFO] NumPins = 2696
 [INFO] DieAreaLxLy = (0, 0)
 [INFO] DieAreaUxUy = (600000, 600000)
 [INFO] CoreAreaLxLy = (5520, 10880)
 [INFO] CoreAreaUxUy = (594320, 587520)
 [INFO] CoreArea = 339525632000
 [INFO] NonPlaceInstsArea = 7080540800
-[INFO] PlaceInstsArea = 7948873600
-[INFO] Util(%) = 2.391034
-[INFO] StdInstsArea = 7948873600
+[INFO] PlaceInstsArea = 6815286400
+[INFO] Util(%) = 2.050049
+[INFO] StdInstsArea = 6815286400
 [INFO] MacroInstsArea = 0
-[InitialPlace]  Iter: 1 CG Error: 3.23227e-05 HPWL: 145844090
-[InitialPlace]  Iter: 2 CG Error: 1.0957e-07 HPWL: 78803666
-[InitialPlace]  Iter: 3 CG Error: 1.15353e-07 HPWL: 54546290
-[InitialPlace]  Iter: 4 CG Error: 7.33261e-08 HPWL: 49338569
-[InitialPlace]  Iter: 5 CG Error: 1.04116e-07 HPWL: 47950830
-[INFO] FillerInit: NumGCells = 4431
-[INFO] FillerInit: NumGNets = 1034
-[INFO] FillerInit: NumGPins = 2534
+[InitialPlace]  Iter: 1 CG Error: 6.81385e-05 HPWL: 146861530
+[InitialPlace]  Iter: 2 CG Error: 8.45474e-08 HPWL: 79265516
+[InitialPlace]  Iter: 3 CG Error: 1.0482e-07 HPWL: 55548094
+[InitialPlace]  Iter: 4 CG Error: 1.16193e-07 HPWL: 50597663
+[InitialPlace]  Iter: 5 CG Error: 1.17415e-07 HPWL: 49328140
+[INFO] FillerInit: NumGCells = 6160
+[INFO] FillerInit: NumGNets = 1127
+[INFO] FillerInit: NumGPins = 2696
 [INFO] TargetDensity = 0.150000
-[INFO] AveragePlaceInstArea = 11503435
-[INFO] IdealBinArea = 76689560
-[INFO] IdealBinCnt = 4427
+[INFO] AveragePlaceInstArea = 8605159
+[INFO] IdealBinArea = 57367724
+[INFO] IdealBinCnt = 5918
 [INFO] TotalBinArea = 339525632000
 [INFO] BinCnt = (64, 64)
 [INFO] BinSize = (9200, 9010)
 [INFO] NumBins = 4096
-[NesterovSolve] Iter: 1 overflow: 0.799675 HPWL: 55335666
-[NesterovSolve] Iter: 10 overflow: 0.694947 HPWL: 53324558
-[NesterovSolve] Iter: 20 overflow: 0.707328 HPWL: 52804641
-[NesterovSolve] Iter: 30 overflow: 0.703579 HPWL: 52924457
-[NesterovSolve] Iter: 40 overflow: 0.705888 HPWL: 52890052
-[NesterovSolve] Iter: 50 overflow: 0.705075 HPWL: 52868196
-[NesterovSolve] Finished with Overflow: 0.705151
-Warning: /home/ubuntu/google-shuttle/.install/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_100C_1v60.lib, line 32 default_operating_condition ss_100C_1v60 not found.
-Warning: Liberty cell sky130_fd_sc_hd__lpflow_lsbuf_lh_hl_isowell_tap_1 pin VPB missing from LEF macro
-Warning: Liberty cell sky130_fd_sc_hd__lpflow_lsbuf_lh_hl_isowell_tap_2 pin VPB missing from LEF macro
-Warning: Liberty cell sky130_fd_sc_hd__lpflow_lsbuf_lh_hl_isowell_tap_4 pin VPB missing from LEF macro
-Warning: Liberty cell sky130_fd_sc_hd__lpflow_lsbuf_lh_isowell_tap_1 pin VPB missing from LEF macro
-Warning: Liberty cell sky130_fd_sc_hd__lpflow_lsbuf_lh_isowell_tap_2 pin VPB missing from LEF macro
-Warning: Liberty cell sky130_fd_sc_hd__lpflow_lsbuf_lh_isowell_tap_4 pin VPB missing from LEF macro
-Warning: /home/ubuntu/google-shuttle/.install/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v95.lib, line 31 default_operating_condition ff_n40C_1v95 not found.
+[NesterovSolve] Iter: 1 overflow: 0.761528 HPWL: 55152110
+[NesterovSolve] Iter: 10 overflow: 0.65134 HPWL: 53529725
+[NesterovSolve] Iter: 20 overflow: 0.656005 HPWL: 52380102
+[NesterovSolve] Iter: 30 overflow: 0.657167 HPWL: 52474311
+[NesterovSolve] Iter: 40 overflow: 0.656635 HPWL: 52524566
+[NesterovSolve] Iter: 50 overflow: 0.656895 HPWL: 52418998
+[NesterovSolve] Finished with Overflow: 0.656966
+Warning: /home/ubuntu/google-shuttle/new-env/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ss_100C_1v60.lib, line 32 default_operating_condition ss_100C_1v60 not found.
+Warning: /home/ubuntu/google-shuttle/new-env/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__ff_n40C_1v95.lib, line 31 default_operating_condition ff_n40C_1v95 not found.
 create_clock [get_ports $::env(CLOCK_PORT)]  -name $::env(CLOCK_PORT)  -period $::env(CLOCK_PERIOD)
-Error: base.sdc, 1 can't read "::env(CLOCK_PORT)": no such variable
+set input_delay_value [expr $::env(CLOCK_PERIOD) * $::env(IO_PCT)]
+set output_delay_value [expr $::env(CLOCK_PERIOD) * $::env(IO_PCT)]
+puts "\[INFO\]: Setting output delay to: $output_delay_value"
+[INFO]: Setting output delay to: 2.0
+puts "\[INFO\]: Setting input delay to: $input_delay_value"
+[INFO]: Setting input delay to: 2.0
+set clk_indx [lsearch [all_inputs] [get_port $::env(CLOCK_PORT)]]
+#set rst_indx [lsearch [all_inputs] [get_port resetn]]
+set all_inputs_wo_clk [lreplace [all_inputs] $clk_indx $clk_indx]
+#set all_inputs_wo_clk_rst [lreplace $all_inputs_wo_clk $rst_indx $rst_indx]
+set all_inputs_wo_clk_rst $all_inputs_wo_clk
+# correct resetn
+set_input_delay $input_delay_value  -clock [get_clocks $::env(CLOCK_PORT)] $all_inputs_wo_clk_rst
+#set_input_delay 0.0 -clock [get_clocks $::env(CLOCK_PORT)] {resetn}
+set_output_delay $output_delay_value  -clock [get_clocks $::env(CLOCK_PORT)] [all_outputs]
+# TODO set this as parameter
+set_driving_cell -lib_cell $::env(SYNTH_DRIVING_CELL) -pin $::env(SYNTH_DRIVING_CELL_PIN) [all_inputs]
+set cap_load [expr $::env(SYNTH_CAP_LOAD) / 1000.0]
+puts "\[INFO\]: Setting load to: $cap_load"
+[INFO]: Setting load to: 0.01765
+set_load  $cap_load [all_outputs]

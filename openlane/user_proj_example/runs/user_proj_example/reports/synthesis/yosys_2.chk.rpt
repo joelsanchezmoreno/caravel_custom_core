@@ -1,5 +1,5 @@
 
-17. Executing CHECK pass (checking for obvious problems).
+18. Executing CHECK pass (checking for obvious problems).
 checking module user_proj_example..
 Warning: Wire user_proj_example.\wbs_dat_o [31] is used but has no driver.
 Warning: Wire user_proj_example.\wbs_dat_o [30] is used but has no driver.
