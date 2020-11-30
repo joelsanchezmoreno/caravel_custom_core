@@ -2,20 +2,14 @@
 /*
  *-------------------------------------------------------------
  *
- * user_proj_example
+ * user_project_wrapper
  *
- * This is an example of a (trivially simple) user project,
- * showing how the user project can connect to the logic
- * analyzer, the wishbone bus, and the I/O pads.
+ * This wrapper enumerates all of the pins available to the
+ * user for the user project.
  *
- * This project generates an integer count, which is output
- * on the user area GPIO pads (digital output only).  The
- * wishbone connection allows the project to be controlled
- * (start and stop) from the management SoC program.
- *
- * See the testbenches in directory "mprj_counter" for the
- * example programs that drive this user project.  The three
- * testbenches are "io_ports", "la_test1", and "la_test2".
+ * An example user project is provided in this wrapper.  The
+ * example should be removed and replaced with the actual
+ * user project.
  *
  *-------------------------------------------------------------
  */
@@ -50,54 +44,66 @@ module user_project_wrapper #(
     input  [127:0] la_data_in,
     output [127:0] la_data_out,
     input  [127:0] la_oen,
-    inout [`MPRJ_IO_PADS-8:0] analog_io,
 
     // IOs
     input  [`MPRJ_IO_PADS-1:0] io_in,
     output [`MPRJ_IO_PADS-1:0] io_out,
     output [`MPRJ_IO_PADS-1:0] io_oeb,
 
-    input   user_clock2    
+    // Analog (direct connection to GPIO pad---use with caution)
+    // Note that analog I/O is not available on the 7 lowest-numbered
+    // GPIO pads, and so the analog_io indexing is offset from the
+    // GPIO indexing by 7.
+    inout [`MPRJ_IO_PADS-8:0] analog_io,
+
+    // Independent clock (on independent integer divider)
+    input   user_clock2
 );
 
-core_top_wrapper 
-core_wrapper ( 
-    .vdda1(vdda1),	// User area 1 3.3V power
-    .vdda2(vdda2),	// User area 2 3.3V power
-    .vssa1(vssa1),	// User area 1 analog ground
-    .vssa2(vssa2),	// User area 2 analog ground
-    .vccd1(vccd1),	// User area 1 1.8V power
-    .vccd2(vccd2),	// User area 2 1.8V power
-    .vssd1(vssd1),	// User area 1 digital ground
-    .vssd2(vssd2),	// User area 2 digital ground
+    /*--------------------------------------*/
+    /* User project is instantiated  here   */
+    /*--------------------------------------*/
 
-    .wb_clk_i(wb_clk_i),
-    .wb_rst_i(wb_rst_i),
+    user_proj_example mprj (
+    `ifdef USE_POWER_PINS
+	.vdda1(vdda1),	// User area 1 3.3V power
+	.vdda2(vdda2),	// User area 2 3.3V power
+	.vssa1(vssa1),	// User area 1 analog ground
+	.vssa2(vssa2),	// User area 2 analog ground
+	.vccd1(vccd1),	// User area 1 1.8V power
+	.vccd2(vccd2),	// User area 2 1.8V power
+	.vssd1(vssd1),	// User area 1 digital ground
+	.vssd2(vssd2),	// User area 2 digital ground
+    `endif
 
-        // MGMT SoC Wishbone Slave 
-    .wbs_cyc_i  ( wbs_cyc_i     ),
-    .wbs_stb_i  ( wbs_stb_i     ),
-    .wbs_we_i   ( wbs_we_i      ),
-    .wbs_sel_i  ( wbs_sel_i     ),
-    .wbs_adr_i  ( wbs_adr_i     ),
-    .wbs_dat_i  ( wbs_dat_i     ),
-    .wbs_ack_o  ( wbs_ack_o     ),
-    .wbs_dat_o  ( wbs_dat_o     ),
+	// MGMT core clock and reset
 
-        // Logic Analyzer
-    .la_data_in ( la_data_in    ),
-    .la_data_out( la_data_out   ),
-    .la_oen     ( la_oen        ),
+    	.wb_clk_i(wb_clk_i),
+    	.wb_rst_i(wb_rst_i),
 
-        // IO Pads
-    .io_in      ( io_in         ),
-    .io_out     ( io_out        ),
-    .io_oeb     ( io_oeb        ),
-    .analog_io  ( analog_io     ),
+	// MGMT SoC Wishbone Slave
 
-    // Independent clock
-    .user_clock2( mprj_clock2   )
-);
+	.wbs_cyc_i(wbs_cyc_i),
+	.wbs_stb_i(wbs_stb_i),
+	.wbs_we_i(wbs_we_i),
+	.wbs_sel_i(wbs_sel_i),
+	.wbs_adr_i(wbs_adr_i),
+	.wbs_dat_i(wbs_dat_i),
+	.wbs_ack_o(wbs_ack_o),
+	.wbs_dat_o(wbs_dat_o),
+
+	// Logic Analyzer
+
+	.la_data_in(la_data_in),
+	.la_data_out(la_data_out),
+	.la_oen (la_oen),
+
+	// IO Pads
+
+	.io_in (io_in),
+    	.io_out(io_out),
+    	.io_oeb(io_oeb)
+    );
 
 endmodule	// user_project_wrapper
 `default_nettype wire

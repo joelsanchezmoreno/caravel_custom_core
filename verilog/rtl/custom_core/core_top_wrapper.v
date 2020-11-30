@@ -22,9 +22,7 @@ module core_top_wrapper (
 	la_oen,
 	io_in,
 	io_out,
-	io_oeb,
-	analog_io,
-	user_clock2
+	io_oeb
 );
 	inout vdda1;
 	inout vdda2;
@@ -50,8 +48,6 @@ module core_top_wrapper (
 	input [37:0] io_in;
 	output [37:0] io_out;
 	output [37:0] io_oeb;
-	inout [30:0] analog_io;
-	input user_clock2;
 	wire clk_i;
 	wire reset_i;
 	wire thread_enable;
