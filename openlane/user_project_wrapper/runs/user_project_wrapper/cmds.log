@@ -1,8 +1,14 @@
-Sun Nov 29 10:30:35 UTC 2020 - Executing "/openLANE_flow/scripts/mergeLef.py -i /home/ubuntu/google-shuttle/.install/pdks/sky130A/libs.ref/sky130_fd_sc_hd/techlef/sky130_fd_sc_hd.tlef /home/ubuntu/google-shuttle/.install/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef -o /project/openlane/user_project_wrapper/runs/user_project_wrapper/tmp/merged_unpadded.lef |& tee >&@stdout"
+Mon Nov 30 14:47:05 UTC 2020 - Executing "/openLANE_flow/scripts/mergeLef.py -i /home/ubuntu/google-shuttle/new-env/sky130A/libs.ref/sky130_fd_sc_hd/techlef/sky130_fd_sc_hd.tlef /home/ubuntu/google-shuttle/new-env/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef -o /project/openlane/user_project_wrapper/runs/user_project_wrapper/tmp/merged_unpadded.lef |& tee >&@stdout"
 
-Sun Nov 29 10:30:35 UTC 2020 - Executing "/openLANE_flow/scripts/padLefMacro.py -s unithd -r 8 -i /project/openlane/user_project_wrapper/runs/user_project_wrapper/tmp/merged_unpadded.lef -o /project/openlane/user_project_wrapper/runs/user_project_wrapper/tmp/merged.lef -e {sky130_fd_sc_hd__tap* sky130_fd_sc_hd__decap* sky130_fd_sc_hd__fill*} |& tee >&@stdout"
+Mon Nov 30 14:47:05 UTC 2020 - Executing "/openLANE_flow/scripts/libtrim.pl /home/ubuntu/google-shuttle/new-env/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib /home/ubuntu/google-shuttle/new-env/sky130A/libs.tech/openlane/sky130_fd_sc_hd/no_synth.cells > /project/openlane/user_project_wrapper/runs/user_project_wrapper/tmp/trimmed.lib"
 
-Sun Nov 29 10:30:40 UTC 2020 - Executing "/openLANE_flow/scripts/libtrim.pl /home/ubuntu/google-shuttle/.install/pdks/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib /home/ubuntu/google-shuttle/.install/pdks/sky130A/libs.tech/openlane/sky130_fd_sc_hd/no_synth.cells > /project/openlane/user_project_wrapper/runs/user_project_wrapper/tmp/trimmed.lib"
+Mon Nov 30 14:47:05 UTC 2020 - Executing "yosys -c /openLANE_flow/scripts/synth_top.tcl -l /project/openlane/user_project_wrapper/runs/user_project_wrapper/logs/synthesis/yosys.log |& tee >&@stdout"
 
-Sun Nov 29 10:30:40 UTC 2020 - Executing "yosys -c /openLANE_flow/scripts/synth.tcl -l /project/openlane/user_project_wrapper/runs/user_project_wrapper/logs/synthesis/yosys.log |& tee >&@stdout"
+Mon Nov 30 14:47:08 UTC 2020 - Executing "sed -i -e {s/\(set ::env(CURRENT_NETLIST)\).*/\1 \/project\/openlane\/user_project_wrapper\/runs\/user_project_wrapper\/results\/synthesis\/user_project_wrapper.synthesis.v/} /project/openlane/user_project_wrapper/runs/user_project_wrapper/config.tcl"
+
+Mon Nov 30 14:47:08 UTC 2020 - Executing "sed -i -e {s/\(set ::env(PREV_NETLIST)\).*/\1 0/} /project/openlane/user_project_wrapper/runs/user_project_wrapper/config.tcl"
+
+Mon Nov 30 14:47:08 UTC 2020 - Executing "sed -ie /defparam/d /project/openlane/user_project_wrapper/runs/user_project_wrapper/results/synthesis/user_project_wrapper.synthesis.v"
+
+Mon Nov 30 14:47:08 UTC 2020 - Executing "openroad -exit /openLANE_flow/scripts/openroad/or_floorplan.tcl |& tee >&@stdout /project/openlane/user_project_wrapper/runs/user_project_wrapper/logs/floorplan/verilog2def.openroad.log"
 

@@ -79,6 +79,6 @@ set ::env(CHECK_ASSIGN_STATEMENTS) "0"
 set ::env(CHECK_UNMAPPED_CELLS) "1"
 set ::env(USE_ARC_ANTENNA_CHECK) "1"
 set ::env(RUN_SPEF_EXTRACTION) "1"
-set ::env(CURRENT_DEF) /project/openlane/user_proj_example/runs/user_proj_example/results/routing/user_proj_example.def
-set ::env(CURRENT_NETLIST) /project/openlane/user_proj_example/runs/user_proj_example/results/lvs/user_proj_example.lvs.powered.v
-set ::env(PREV_NETLIST) /project/openlane/user_proj_example/runs/user_proj_example/results/synthesis/user_proj_example.synthesis_preroute.v
+set ::env(CURRENT_DEF) "0"
+set ::env(CURRENT_NETLIST) "0"
+set ::env(PREV_NETLIST) "0"

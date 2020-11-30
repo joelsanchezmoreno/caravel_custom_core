@@ -1,0 +1,4 @@
+during executing: "yosys -c /openLANE_flow/scripts/synth.tcl -l /project/openlane/user_proj_example/runs/user_proj_example/logs/synthesis/yosys.log |& tee >&@stdout"
+Last 10 lines:
+child killed: kill signal
+
