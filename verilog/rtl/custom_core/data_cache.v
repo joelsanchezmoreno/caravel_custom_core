@@ -135,7 +135,6 @@ module data_cache (
 		case (dcache_state_ff)
 			idle: begin
 				dcache_ready_next = !store_buffer_full;
-				rsp_valid = 1'b0;
 				req_valid_miss = 1'b0;
 				dcache_tags_hit = 1'b0;
 				req_tag = req_info[186:172];
@@ -175,10 +174,12 @@ module data_cache (
 							dcache_ready_next = 1'b0;
 							pending_req = req_info;
 							dcache_state = write_cache_line;
+							rsp_valid = 1'b0;
 						end
 					end
 					else begin
 						dcache_ready_next = 1'b0;
+						rsp_valid = 1'b0;
 						if (store_buffer_hit_way) begin
 							pending_req = req_info;
 							dcache_state = write_cache_line;
@@ -219,8 +220,9 @@ module data_cache (
 							dCache_data[(req_target_pos * 128) + (32 * req_offset)+:32] = store_buffer_pop_info[31:0];
 						end
 					end
+					rsp_valid = 1'b0;
 				end
-			end
+			end /*end case idle*/
 			evict_line: begin
 				req_valid_miss = 1'b0;
 				if (rsp_valid_miss) begin
@@ -229,7 +231,8 @@ module data_cache (
 					req_valid_miss = 1'b1;
 					dcache_state = bring_line;
 				end
-			end
+				rsp_valid = 1'b0;
+			end /*end case evict_line*/
 			bring_line: begin
 				req_valid_miss = 1'b0;
 				if (rsp_valid_miss) begin
@@ -268,7 +271,10 @@ module data_cache (
 					dcache_ready_next = 1'b1;
 					dcache_state = idle;
 				end
-			end
+				else begin
+					rsp_valid = 1'b0;
+				end
+			end /*end case bring_line*/
 			write_cache_line: begin
 				req_valid_miss = 1'b0;
 				dcache_ready_next = 1'b0;
@@ -288,8 +294,10 @@ module data_cache (
 					end
 					search_store_buffer = 1'b1;
 					search_tag = pending_req_ff[186:172];
-					if (store_buffer_hit_tag | store_buffer_hit_way)
+					if (store_buffer_hit_tag | store_buffer_hit_way) begin
 						dcache_state = write_cache_line;
+						rsp_valid = 1'b0;
+					end
 					else if (store_buffer_hit_tag_ff) begin
 						req_size = pending_req_ff[166-:2];
 						if (!pending_req_ff[164]) begin
@@ -305,6 +313,9 @@ module data_cache (
 							end
 							rsp_valid = 1'b1;
 						end
+						else begin
+							rsp_valid = 1'b0;
+						end
 						dcache_ready_next = 1'b1;
 						dcache_state = idle;
 					end
@@ -316,9 +327,13 @@ module data_cache (
 						dCache_valid[req_target_pos_ff] = 1'b0;
 						dCache_dirty[req_target_pos_ff] = 1'b0;
 						dcache_state = evict_line;
+						rsp_valid = 1'b0;
 					end
 				end
-			end
+				else begin
+					rsp_valid = 1'b0;
+				end
+			end /*end case write_cache_line*/
 		endcase
 	end
 	wire [0:0] update_set;
