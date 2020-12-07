@@ -47,7 +47,7 @@ module data_cache (
 		else
 			dCache_dirty_ff <= dCache_dirty;
 	reg dcache_tags_hit;
-	reg [-1:0] hit_way;
+	reg /*[-1:0]*/ hit_way;
 	reg [55:0] store_buffer_push_info;
 	wire [55:0] store_buffer_pop_info;
 	wire store_buffer_perform;
@@ -121,7 +121,7 @@ module data_cache (
 	localparam [1:0] evict_line = 2'b01;
 	localparam [1:0] idle = 2'b00;
 	localparam [1:0] write_cache_line = 2'b11;
-	always @(*) begin
+	always_comb begin
 		dcache_ready_next = dcache_ready_ff;
 		dcache_state = dcache_state_ff;
 		dCache_valid = dCache_valid_ff;
@@ -146,6 +146,9 @@ module data_cache (
 							req_target_pos = iter + req_set;
 							dcache_tags_hit = 1'b1;
 							hit_way = iter;
+						end
+						else begin
+							hit_way = 1'b1;
 						end
 					if (!dcache_tags_hit)
 						req_target_pos = miss_dcache_way + req_set;
@@ -221,6 +224,7 @@ module data_cache (
 						end
 					end
 					rsp_valid = 1'b0;
+					hit_way=1'b0;
 				end
 			end /*end case idle*/
 			evict_line: begin
@@ -232,6 +236,7 @@ module data_cache (
 					dcache_state = bring_line;
 				end
 				rsp_valid = 1'b0;
+				hit_way=1'b0;
 			end /*end case evict_line*/
 			bring_line: begin
 				req_valid_miss = 1'b0;
@@ -274,6 +279,7 @@ module data_cache (
 				else begin
 					rsp_valid = 1'b0;
 				end
+				hit_way=1'b0;
 			end /*end case bring_line*/
 			write_cache_line: begin
 				req_valid_miss = 1'b0;
@@ -333,6 +339,7 @@ module data_cache (
 				else begin
 					rsp_valid = 1'b0;
 				end
+				hit_way=1'b0;
 			end /*end case write_cache_line*/
 		endcase
 	end
